@@ -1,0 +1,18 @@
+<main class="container">
+    <% for(let i = 0; i < reservations.length; i++) {%>
+        <%= reservations[i].firstName %>
+        <br>
+        <%= reservations[i].surname %>
+        <br>
+        <%= reservations[i].email %>
+        <br>
+        <%= reservations[i].roomNumber %>
+        <br>
+        <%= reservations[i].status %>
+        <br>
+        <%= reservations[i].dateCreated %>
+        <br>
+        <%= reservations[i].dateUpdated %>
+        <br>
+    <% } %>
+</main>
