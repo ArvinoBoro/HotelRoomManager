@@ -1,0 +1,22 @@
+<main class="container">
+    <% for(let i = 0; i < listings.length; i++) {%>
+        <%= listings[i].availability %>
+        <br>
+        <%= listings[i].dateCreated %>
+        <br>
+        <%= listings[i].dateUpdated %>
+        <br>
+        <%= listings[i].description %>
+        <br>
+        <%= listings[i].floor %>
+        <br>
+        <%= listings[i].price %>
+        <br>
+        <%= listings[i].roomNumber %>
+        <br>
+        <%= listings[i].size %>
+        <br>
+        <%= listings[i].type %>
+        <br>
+    <% } %>
+</main>
