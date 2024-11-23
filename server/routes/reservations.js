@@ -76,4 +76,45 @@ router.post('/add/:id', async(req, res, next) => {
     }
 });
 
+router.get('/edit/:id', async(req, res, next) => { 
+    try {
+        const id = req.params.id;
+        const reservationToEdit = await Reservations.findById(id); 
+        res.render('reservations/edit', { 
+            title: 'Edit Reservation',
+            Reservation: reservationToEdit 
+        })
+    }
+    catch(err) {
+        console.error(err);
+        next(err);
+    }
+});
+
+router.post('/edit/:id', async(req, res, next) => {
+    try {
+        let id = req.params.id;
+        let updatedReservation = Reservations({
+            _id: id,
+            firstName: req.body.firstName,
+            surname: req.body.surname,
+            email: req.body.email,
+            dateUpdated: new Date(),
+            status: req.body.status,
+            startDate: req.body.startDate,
+            endDate: req.body.endDate
+        });
+        console.log(updatedReservation);
+        Reservations.findByIdAndUpdate(id, updatedReservation).then(() => {
+            res.redirect('/reservations');
+        });
+    }
+    catch(err) {
+        console.error(err);
+        next(err);
+    }
+});
+
+
+
 module.exports = router; 
