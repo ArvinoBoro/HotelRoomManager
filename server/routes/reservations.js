@@ -115,6 +115,21 @@ router.post('/edit/:id', async(req, res, next) => {
     }
 });
 
+router.get('/delete/:id', async(req, res, next) => {
+    try {
+        let id = req.params.id;
+        Reservations.deleteOne({_id:id}).then(() => {
+            res.redirect('/reservations')
+        })
+    }
+    catch(error) {
+        console.error(err);
+        res.render('/reservations',{
+            error:'Error on the server'
+        })
+    }
+});
+
 
 
 module.exports = router; 

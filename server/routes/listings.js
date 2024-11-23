@@ -46,6 +46,7 @@ router.post('/add', async(req, res, next) => {
             dateUpdated: new Date(),
             addedNotes: req.body.addedNotes,
             floor: req.body.floor,
+            price: req.body.price,
             roomNumber: req.body.roomNumber,
             size: req.body.size,
             type: req.body.type,
@@ -94,19 +95,32 @@ router.post('/edit/:id', async(req, res, next) => {
             size: req.body.size,
             type: req.body.type,
             view: req.body.view
-        })
+        });
         console.log(updatedListing);
         Listings.findByIdAndUpdate(id, updatedListing).then(() => {
             res.redirect('/listings');
-        })
+        });
     }
     catch(err) {
         console.error(err);
         next(err);
     }
-})
+});
 
-
+router.get('/delete/:id', async(req, res, next) => {
+    try {
+        let id = req.params.id;
+        Listings.deleteOne({_id:id}).then(() => {
+            res.redirect('/listings')
+        })
+    }
+    catch(error) {
+        console.error(err);
+        res.render('/listings',{
+            error:'Error on the server'
+        })
+    }
+});
 
 
 
