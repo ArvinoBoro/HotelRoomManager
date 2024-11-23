@@ -66,5 +66,46 @@ router.post('/add', async(req, res, next) => {
     }
 });
 
+router.get('/edit/:id', async(req, res, next) => { // Every profile or account has a specific token or ID that indicates specific privileges.
+    try {
+        const id = req.params.id;
+        const listingToEdit = await Listings.findById(id); // Mongoose query
+        res.render('listings/edit', { 
+            title: 'Edit Listing',
+            Listing: listingToEdit // Send the document with the requested ID.
+        })
+    }
+    catch(err) {
+        console.error(err);
+        next(err);
+    }
+})
+
+router.post('/edit/:id', async(req, res, next) => {
+    try {
+        let id = req.params.id;
+        let updatedListing = Listings({
+            _id: id,
+            availability: req.body.availability,
+            dateUpdated: new Date(),
+            addedNotes: req.body.addedNotes,
+            floor: req.body.floor,
+            roomNumber: req.body.roomNumber,
+            size: req.body.size,
+            type: req.body.type,
+            view: req.body.view
+        })
+        console.log(updatedListing);
+        Listings.findByIdAndUpdate(id, updatedListing).then(() => {
+            res.redirect('/listings');
+        })
+    }
+    catch(err) {
+        console.error(err);
+        next(err);
+    }
+})
+
+
 
 module.exports = router; 

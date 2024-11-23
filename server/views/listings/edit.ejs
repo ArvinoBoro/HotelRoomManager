@@ -1,0 +1,88 @@
+<form method="POST">
+    <label for="availability">Availability</label> 
+    <select name="availability" required>
+        <% if(Listing.availability == true) { %>
+            <option value="true" selected>Available</option>
+            <option value="false">Not Available</option>
+        <% } else { %>
+            <option value="true">Available</option>
+            <option value="false" selected>Not Available</option>
+        <% } %>
+    </select>
+
+    <label for="addedNotes">Added Notes</label>
+    <textarea name="addedNotes"><%= Listing.addedNotes %></textarea>
+
+    <label for="floor" value="<%= Listing.floor %>">Floor</label>
+    <input type="number" name="floor" value="<%= Listing.floor %>" required>
+
+    <label for="price">Price</label>
+    <input type="number" name="price" value="<%= Listing.price %>" required>
+
+    <label for="roomNumber">Room Number</label>
+    <input type="number" name="roomNumber" value="<%= Listing.roomNumber %>" required>
+
+    <label for="size">Size (sqft)</label>
+    <input type="number" name="size" value="<%= Listing.size %>" required>
+
+    <label for="type">Room Type</label>
+    <select name="type" required>
+        <% if(Listing.type == 'single') { %>
+            <option value="single" selected>Single</option>
+        <% } else { %>
+            <option value="single" selected>Single</option>
+        <% } %>
+
+        <% if(Listing.type == 'double') { %>
+            <option value="double" selected>Double</option>
+        <% } else { %>
+            <option value="double">Single</option>
+        <% } %>
+
+        <% if(Listing.type == 'twin') { %>
+            <option value="twin" selected>Twin</option>
+        <% } else { %>
+            <option value="ptwin">Twin</option>
+        <% } %>
+
+        <% if(Listing.type == 'suite') { %>
+            <option value="suite" selected>Suite</option>
+        <% } else { %>
+            <option value="suite">Suite</option>
+        <% } %>
+    </select>
+
+    <label for="view">View</label>
+    <select name="view" required>
+        <% if(Listing.view == 'ocean') { %>
+            <option value="ocean" selected>Ocean</option>
+        <% } else { %>
+            <option value="ocean" selected>Ocean</option>
+        <% } %>
+
+        <% if(Listing.view == 'park') { %>
+            <option value="park" selected>Park</option>
+        <% } else { %>
+            <option value="park">Park</option>
+        <% } %>
+
+        <% if(Listing.view == 'parking') { %>
+            <option value="parking" selected>Parking</option>
+        <% } else { %>
+            <option value="parking">Parking</option>
+        <% } %>
+
+        <% if(Listing.view == 'town') { %>
+            <option value="town" selected>Town</option>
+        <% } else { %>
+            <option value="town">Town</option>
+        <% } %>
+    </select>
+
+    <input name="priceUpdate" type="checkbox">Make the price change apply to all listings of the '<%= Listing.view %>' view and '<%= Listing.type %>' type.</input>
+
+    <button type="submit">Save Changes</button>
+    <button type="reset">Reset</button>
+    <a href="/listings">Cancel</a>
+
+</form>
