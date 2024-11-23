@@ -7,7 +7,9 @@ let reservationModel = mongoose.Schema({
     roomNumber: Number,
     status: String,
     dateCreated: Date,
-    dateUpdated: Date
+    dateUpdated: Date,
+    startDate: String,
+    endDate: String
 }, {
     collection: 'reservations'
 });
