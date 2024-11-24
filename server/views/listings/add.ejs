@@ -1,87 +1,93 @@
 <%- include ../partials/header.ejs %>
 <%- include ../partials/navbar.ejs %>
 
+<div class="container mt-3">
+    <h2><%= title %></h2>
+    <form method="POST" action="/listings/add">
+      <div class="mb-3">
+        <label for="addedNotes">Added Notes</label>
+        <textarea class="form-control" name="addedNotes" value="<%= previousListing.addedNotes %>"></textarea>   
+      </div>
+      <div class="mb-3">
+        <label for="price">Price</label>
+        <input class="form-control" type="number" name="price" value="<%= previousListing.price %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="roomNumber">Room Number</label>
+        <input class="form-control" type="number" name="roomNumber" value="<%= previousListing.roomNumber %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="size">Size (sqft)</label>
+        <input class="form-control" type="number" name="size" value="<%= previousListing.size %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="type">Room Type</label>
+        <select class="form-control" name="type" required>
+            <% if(previousListing.type == 'single') { %>
+                <option value="single" selected>Single</option>
+            <% } else { %>
+                <option value="single" selected>Single</option>
+            <% } %>
 
-<form method="POST", action="/listings/add">
-    <label for="availability">Availability</label> 
-    <select name="availability" required>
-            <option value="true">Available</option>
-            <option value="false">Not Available</option>
-    </select>
+            <% if(previousListing.type == 'double') { %>
+                <option value="double" selected>Double</option>
+            <% } else { %>
+                <option value="double">Single</option>
+            <% } %>
 
-    <label for="addedNotes">Added Notes</label>
-    <textarea name="addedNotes" value="<%= previousListing.addedNotes %>"></textarea>
+            <% if(previousListing.type == 'twin') { %>
+                <option value="twin" selected>Twin</option>
+            <% } else { %>
+                <option value="ptwin">Twin</option>
+            <% } %>
 
-    <label for="floor" value="<%= previousListing.floor %>">Floor</label>
-    <input type="number" name="floor" value="<%= previousListing.floor %>" required>
+            <% if(previousListing.type == 'suite') { %>
+                <option value="suite" selected>Suite</option>
+            <% } else { %>
+                <option value="suite">Suite</option>
+            <% } %>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="view">View</label>
+        <select class="form-control" name="view" required>
+            <% if(previousListing.view == 'ocean') { %>
+                <option value="ocean" selected>Ocean</option>
+            <% } else { %>
+                <option value="ocean" selected>Ocean</option>
+            <% } %>
 
-    <label for="price">Price</label>
-    <input type="number" name="price" value="<%= previousListing.price %>" required>
+            <% if(previousListing.view == 'park') { %>
+                <option value="park" selected>Park</option>
+            <% } else { %>
+                <option value="park">Park</option>
+            <% } %>
 
-    <label for="roomNumber">Room Number</label>
-    <input type="number" name="roomNumber" value="<%= previousListing.roomNumber %>" required>
+            <% if(previousListing.view == 'parking') { %>
+                <option value="parking" selected>Parking</option>
+            <% } else { %>
+                <option value="parking">Parking</option>
+            <% } %>
 
-    <label for="size">Size (sqft)</label>
-    <input type="number" name="size" value="<%= previousListing.size %>" required>
+            <% if(previousListing.view == 'town') { %>
+                <option value="town" selected>Town</option>
+            <% } else { %>
+                <option value="town">Town</option>
+            <% } %>
+        </select>
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="availability">Availability</label> 
+        <select class="form-control" name="availability" required>
+                <option value="true">Available</option>
+                <option value="false">Not Available</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" type="submit">Add Listing</button>  
+        <button class="btn btn-secondary" type="reset">Reset</button>
+        <a href="/listings" class="btn btn-warning">Cancel<i class="fas fa-undo"></i></a>   
+    </form>
+  </div>
 
-    <label for="type">Room Type</label>
-    <select name="type" required>
-        <% if(previousListing.type == 'single') { %>
-            <option value="single" selected>Single</option>
-        <% } else { %>
-            <option value="single" selected>Single</option>
-        <% } %>
-
-        <% if(previousListing.type == 'double') { %>
-            <option value="double" selected>Double</option>
-        <% } else { %>
-            <option value="double">Single</option>
-        <% } %>
-
-        <% if(previousListing.type == 'twin') { %>
-            <option value="twin" selected>Twin</option>
-        <% } else { %>
-            <option value="ptwin">Twin</option>
-        <% } %>
-
-        <% if(previousListing.type == 'suite') { %>
-            <option value="suite" selected>Suite</option>
-        <% } else { %>
-            <option value="suite">Suite</option>
-        <% } %>
-    </select>
-
-    <label for="view">View</label>
-    <select name="view" required>
-        <% if(previousListing.view == 'ocean') { %>
-            <option value="ocean" selected>Ocean</option>
-        <% } else { %>
-            <option value="ocean" selected>Ocean</option>
-        <% } %>
-
-        <% if(previousListing.view == 'park') { %>
-            <option value="park" selected>Park</option>
-        <% } else { %>
-            <option value="park">Park</option>
-        <% } %>
-
-        <% if(previousListing.view == 'parking') { %>
-            <option value="parking" selected>Parking</option>
-        <% } else { %>
-            <option value="parking">Parking</option>
-        <% } %>
-
-        <% if(previousListing.view == 'town') { %>
-            <option value="town" selected>Town</option>
-        <% } else { %>
-            <option value="town">Town</option>
-        <% } %>
-    </select>
-
-    <button type="submit">Add Listing</button>
-    <button type="reset">Reset</button>
-    <a href="/listings">Cancel</a>
-
-</form>
 
 <%- include ../partials/footer.ejs %>
