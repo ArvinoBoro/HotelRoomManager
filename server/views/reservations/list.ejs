@@ -1,3 +1,6 @@
+<%- include ../partials/header.ejs %>
+<%- include ../partials/navbar.ejs %>
+
 <main class="container">
     <% for(let i = 0; i < reservations.length; i++) {%>
         <%= reservations[i].firstName %>
@@ -16,3 +19,5 @@
         <br>
     <% } %>
 </main>
+
+<%- include ../partials/footer.ejs %>

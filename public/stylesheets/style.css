@@ -1,8 +1,19 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+nav .nav-link.active  {
+  color: white !important;
+}
+
+nav .nav-link {
+  color: #D9D8D0; 
+}
+
+nav .nav-link:hover {
+  color: white; 
 }
