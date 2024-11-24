@@ -1,9 +1,15 @@
 <%- include ./partials/header.ejs %>
 <%- include ./partials/navbar.ejs %>
 
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<div id="error-container" class="container" style="text-align: center; padding: 40px;">
+    <h1><%= message %></h1>
+    <h2><%= error.status %></h2>
+    <% if(error.status == '404') { %>
+        <h4>Possibly a bad URI.</h4>
+    <% } %>
+</div>
+
+
 
 <%- include ./partials/footer.ejs %>
 

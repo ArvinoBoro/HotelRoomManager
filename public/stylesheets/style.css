@@ -17,3 +17,15 @@ nav .nav-link {
 nav .nav-link:hover {
   color: white; 
 }
+
+footer nav {
+  background-color: #033A40;
+  color: white !important;
+}
+
+nav .navbar-text {
+  margin: auto;
+  color: white;
+}
+
+
