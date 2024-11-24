@@ -2,28 +2,219 @@
 <%- include ../partials/navbar.ejs %>
 
 
-<main class="container">
-    <% for(let i = 0; i < listings.length; i++) {%>
-        <%= listings[i].availability %>
-        <br>
-        <%= listings[i].dateCreated %>
-        <br>
-        <%= listings[i].dateUpdated %>
-        <br>
-        <%= listings[i].addedNotes %>
-        <br>
-        <%= listings[i].floor %>
-        <br>
-        <%= listings[i].price %>
-        <br>
-        <%= listings[i].roomNumber %>
-        <br>
-        <%= listings[i].size %>
-        <br>
-        <%= listings[i].type %>
-        <br>
-        <br>
-    <% } %>
-</main>
+<div class="container mt-3">
+    <div id="accordion">
+            <div class="card">
+            <div class="card-header">
+                <a class="btn" data-bs-toggle="collapse" href="#collapseOne">
+                    <div class="card">
+                        <img src="/images/single.jpg" width="100%" style="object-fit: contain;">
+                        <div class="card-body">
+                            <h2 class="card-title">Single</h2>
+                        </div>
+                    </div>         
+                </a>
+                <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
+                    <% for(let i = 0; i < Listings.length; i++) { %>
+                    <% if(Listings[i].type == 'single') { %>
+                        <div class="card">
+                            <div class="card-body">
+                                <% if(Listings[i].availability) { %>
+                                    <h3>Available</h3>
+                                <% } else { %>
+                                    <h3>Not Available</h3>
+                                <% } %>
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Price ($/night)</th>
+                                        <th>Floor</th>
+                                        <th>Room Number</th>
+                                        <th>View</th>
+                                        <th>Size (sqft)</th>
+                                        <th>Date Created</th>
+                                        <th>Date Updated</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><%= Listings[i].price %></td>
+                                        <td><%= Listings[i].floor %></td>
+                                        <td><%= Listings[i].roomNumber %></td>
+                                        <td><%= Listings[i].view %></td>
+                                        <td><%= Listings[i].size %></td>
+                                        <td><%= Listings[i].dateCreated %></td>
+                                        <td><%= Listings[i].dateUpdated %></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <%= Listings[i].addedNotes %>
+                            </div>
+                        </div>
+                    <% } %>
+                    <% } %>
+                </div>
+            </div>
 
+            <div class="card">
+                <div class="card-header">
+                    <a class="btn" data-bs-toggle="collapse" href="#collapseTwo">
+                        <div class="card">
+                            <img src="/images/double.jpg" width="100%" style="object-fit: contain;">
+                            <div class="card-body">
+                                <h2 class="card-title">Double</h2>
+                            </div>      
+                        </div>
+                    </a>
+                </div>
+                <div id="collapseTwo" class="collapse show" data-bs-parent="#accordion">
+                    <% for(let i = 0; i < Listings.length; i++) { %>
+                    <% if(Listings[i].type == 'double') { %>
+                    
+                        <div class="card">
+                            <div class="card-body">
+                                <% if(Listings[i].availability) { %>
+                                    <h3>Available</h3>
+                                <% } else { %>
+                                    <h3>Not Available</h3>
+                                <% } %>
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Price ($/night)</th>
+                                        <th>Floor</th>
+                                        <th>Room Number</th>
+                                        <th>View</th>
+                                        <th>Size (sqft)</th>
+                                        <th>Date Created</th>
+                                        <th>Date Updated</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><%= Listings[i].price %></td>
+                                        <td><%= Listings[i].floor %></td>
+                                        <td><%= Listings[i].roomNumber %></td>
+                                        <td><%= Listings[i].view %></td>
+                                        <td><%= Listings[i].size %></td>
+                                        <td><%= Listings[i].dateCreated %></td>
+                                        <td><%= Listings[i].dateUpdated %></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <%= Listings[i].addedNotes %>
+                            </div>
+                        </div>
+                    <% } %>
+                    <% } %>
+                </div>  
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                <a class="btn" data-bs-toggle="collapse" href="#collapseThree">
+                    <div class="card">
+                        <img src="/images/twin.jpg" width="100%" style="object-fit: contain;">
+                        <div class="card-body">
+                            <h2 class="card-title">Twin</h2>
+                        </div>
+                    </div>         
+                </a>
+                <div id="collapseThree" class="collapse show" data-bs-parent="#accordion">
+                    <% for(let i = 0; i < Listings.length; i++) { %>
+                    <% if(Listings[i].type == 'twin') { %>
+                        <div class="card">
+                            <div class="card-body">
+                                <% if(Listings[i].availability) { %>
+                                    <h3>Available</h3>
+                                <% } else { %>
+                                    <h3>Not Available</h3>
+                                <% } %>
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Price ($/night)</th>
+                                        <th>Floor</th>
+                                        <th>Room Number</th>
+                                        <th>View</th>
+                                        <th>Size (sqft)</th>
+                                        <th>Date Created</th>
+                                        <th>Date Updated</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><%= Listings[i].price %></td>
+                                        <td><%= Listings[i].floor %></td>
+                                        <td><%= Listings[i].roomNumber %></td>
+                                        <td><%= Listings[i].view %></td>
+                                        <td><%= Listings[i].size %></td>
+                                        <td><%= Listings[i].dateCreated %></td>
+                                        <td><%= Listings[i].dateUpdated %></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <%= Listings[i].addedNotes %>
+                            </div>
+                        </div>
+                    <% } %>
+                    <% } %>  
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                <a class="btn" data-bs-toggle="collapse" href="#collapseFour">
+                    <div class="card">
+                        <img src="/images/suite.jpg" width="100%" style="object-fit: contain;">
+                        <div class="card-body">
+                            <h2 class="card-title">Suite</h2>
+                        </div>
+                    </div>         
+                </a>
+                <div id="collapseFour" class="collapse show" data-bs-parent="#accordion">
+                    <% for(let i = 0; i < Listings.length; i++) { %>
+                    <% if(Listings[i].type == 'suite') { %>
+                        <div class="card">
+                            <div class="card-body">
+                                <% if(Listings[i].availability) { %>
+                                    <h3>Available</h3>
+                                <% } else { %>
+                                    <h3>Not Available</h3>
+                                <% } %>
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Price ($/night)</th>
+                                        <th>Floor</th>
+                                        <th>Room Number</th>
+                                        <th>View</th>
+                                        <th>Size (sqft)</th>
+                                        <th>Date Created</th>
+                                        <th>Date Updated</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><%= Listings[i].price %></td>
+                                        <td><%= Listings[i].floor %></td>
+                                        <td><%= Listings[i].roomNumber %></td>
+                                        <td><%= Listings[i].view %></td>
+                                        <td><%= Listings[i].size %></td>
+                                        <td><%= Listings[i].dateCreated %></td>
+                                        <td><%= Listings[i].dateUpdated %></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <%= Listings[i].addedNotes %>
+                            </div>
+                        </div>
+                    <% } %>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+</div>
+
+  
 <%- include ../partials/footer.ejs %>
