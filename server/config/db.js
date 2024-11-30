@@ -1,5 +1,4 @@
-require('dotenv').config();
-
 module.exports = {
-    "URI": process.env.MONGODB_URI 
+    URI: 'mongodb+srv://arvinziba963:gTqoIFndaYoL9kYZ@cluster0.kwwfy.mongodb.net/HotelRoomManager'
 }
+

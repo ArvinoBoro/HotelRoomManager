@@ -2,21 +2,29 @@ let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
 let Listings = require('../models/listing');
+let path = require('path');
+let fs = require('fs');
 
 /* Display the hotel room listings */ 
 router.get('/', async(req, res, next) => {
     try {
-        const listings = await Listings.find();
+        let listings = await Listings.find();
+        let imageDir = path.join(__dirname, '../../public/images');
+        console.log(imageDir)
+        let images = fs.readdirSync(imageDir).sort();
         console.log(listings);
+        console.log(images);
         res.render('listings/list', {
             title: 'Listings',
-            Listings: listings
-        })}
+            Listings: listings,
+            Images: images 
+        });
+    }
         catch(err){
             console.error(err);
             res.render('listings/list', {
                 error: 'Error on the server'
-            })
+            });
         }
 });
 

@@ -5,6 +5,7 @@ let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 let mongoose = require('mongoose'); 
 
+
 let indexRouter = require('../routes/index');
 let usersRouter = require('../routes/users');
 let listingsRouter = require('../routes/listings');
@@ -14,6 +15,7 @@ let app = express();
 
 // database setup
 let DB = require('./db'); // Import the module with the URI
+console.log(DB);
 mongoose.connect(DB.URI); // Connect to the database
 let mongoDB = mongoose.connection; 
 mongoDB.on('error',console.error.bind(console,'Connection Error')) // Display any errors to console

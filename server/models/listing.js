@@ -15,7 +15,7 @@ let listingModel = mongoose.Schema({
     collection: 'listings'
 });
 
-module.exports = mongoose.model('Listing', listingModel);
+module.exports = mongoose.model('Listings', listingModel);
 
 
 

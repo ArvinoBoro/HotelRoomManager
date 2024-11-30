@@ -4,19 +4,21 @@
 
 <div class="container mt-3">
     <div id="accordion">
+        <% for(let j = 0; j < Images.length; j++) { %>
             <div class="card">
             <div class="card-header">
-                <a class="btn" data-bs-toggle="collapse" href="#collapseOne">
+                <% let imageName = Images[j].split('.')[0] %>
+                <a class="btn" data-bs-toggle="collapse" href="#<%=j%>">
                     <div class="card">
-                        <img src="/images/single.jpg" width="100%" style="object-fit: contain;">
+                        <img src="/images/<%= Images[j] %>" width="100%" style="object-fit: contain;">
                         <div class="card-body">
-                            <h2 class="card-title">Single</h2>
+                            <h2 class="card-title"><%= imageName %></h2>
                         </div>
                     </div>         
                 </a>
-                <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
+                <div id="<%=j%>" class="collapse" data-bs-parent="#accordion">
                     <% for(let i = 0; i < Listings.length; i++) { %>
-                    <% if(Listings[i].type == 'single') { %>
+                    <% if(Listings[i].type == imageName.toLowerCase()) { %>
                         <div class="card">
                             <div class="card-body">
                                 <% if(Listings[i].availability) { %>
@@ -24,196 +26,46 @@
                                 <% } else { %>
                                     <h3>Not Available</h3>
                                 <% } %>
-                                <table class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>Price ($/night)</th>
-                                        <th>Floor</th>
-                                        <th>Room Number</th>
-                                        <th>View</th>
-                                        <th>Size (sqft)</th>
-                                        <th>Date Created</th>
-                                        <th>Date Updated</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td><%= Listings[i].price %></td>
-                                        <td><%= Listings[i].floor %></td>
-                                        <td><%= Listings[i].roomNumber %></td>
-                                        <td><%= Listings[i].view %></td>
-                                        <td><%= Listings[i].size %></td>
-                                        <td><%= Listings[i].dateCreated %></td>
-                                        <td><%= Listings[i].dateUpdated %></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>Price ($/night)</th>
+                                            <th>Floor</th>
+                                            <th>Room Number</th>
+                                            <th>View</th>
+                                            <th>Size (sqft)</th>
+                                            <th>Date Created</th>
+                                            <th>Date Updated</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td><%= Listings[i].price %></td>
+                                            <td><%= Listings[i].floor %></td>
+                                            <td><%= Listings[i].roomNumber %></td>
+                                            <td><%= Listings[i].view %></td>
+                                            <td><%= Listings[i].size %></td>
+                                            <td><%= Listings[i].dateCreated %></td>
+                                            <td><%= Listings[i].dateUpdated %></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>        
+                                </div>
                                 <%= Listings[i].addedNotes %>
+                            </div>
+                            <div class="container pb-3">
+                                <button type="button" class="btn btn-primary btn-lg" <% if(!Listings[i].availability) {%> disabled <% } %>>Reserve</button>
+                                <button type="button" class="btn btn-secondary btn-lg">Edit</button>
+                                <button type="button" class="btn btn-danger btn-lg">Delete</button>
                             </div>
                         </div>
                     <% } %>
                     <% } %>
                 </div>
             </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <a class="btn" data-bs-toggle="collapse" href="#collapseTwo">
-                        <div class="card">
-                            <img src="/images/double.jpg" width="100%" style="object-fit: contain;">
-                            <div class="card-body">
-                                <h2 class="card-title">Double</h2>
-                            </div>      
-                        </div>
-                    </a>
-                </div>
-                <div id="collapseTwo" class="collapse show" data-bs-parent="#accordion">
-                    <% for(let i = 0; i < Listings.length; i++) { %>
-                    <% if(Listings[i].type == 'double') { %>
-                    
-                        <div class="card">
-                            <div class="card-body">
-                                <% if(Listings[i].availability) { %>
-                                    <h3>Available</h3>
-                                <% } else { %>
-                                    <h3>Not Available</h3>
-                                <% } %>
-                                <table class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>Price ($/night)</th>
-                                        <th>Floor</th>
-                                        <th>Room Number</th>
-                                        <th>View</th>
-                                        <th>Size (sqft)</th>
-                                        <th>Date Created</th>
-                                        <th>Date Updated</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td><%= Listings[i].price %></td>
-                                        <td><%= Listings[i].floor %></td>
-                                        <td><%= Listings[i].roomNumber %></td>
-                                        <td><%= Listings[i].view %></td>
-                                        <td><%= Listings[i].size %></td>
-                                        <td><%= Listings[i].dateCreated %></td>
-                                        <td><%= Listings[i].dateUpdated %></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <%= Listings[i].addedNotes %>
-                            </div>
-                        </div>
-                    <% } %>
-                    <% } %>
-                </div>  
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                <a class="btn" data-bs-toggle="collapse" href="#collapseThree">
-                    <div class="card">
-                        <img src="/images/twin.jpg" width="100%" style="object-fit: contain;">
-                        <div class="card-body">
-                            <h2 class="card-title">Twin</h2>
-                        </div>
-                    </div>         
-                </a>
-                <div id="collapseThree" class="collapse show" data-bs-parent="#accordion">
-                    <% for(let i = 0; i < Listings.length; i++) { %>
-                    <% if(Listings[i].type == 'twin') { %>
-                        <div class="card">
-                            <div class="card-body">
-                                <% if(Listings[i].availability) { %>
-                                    <h3>Available</h3>
-                                <% } else { %>
-                                    <h3>Not Available</h3>
-                                <% } %>
-                                <table class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>Price ($/night)</th>
-                                        <th>Floor</th>
-                                        <th>Room Number</th>
-                                        <th>View</th>
-                                        <th>Size (sqft)</th>
-                                        <th>Date Created</th>
-                                        <th>Date Updated</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td><%= Listings[i].price %></td>
-                                        <td><%= Listings[i].floor %></td>
-                                        <td><%= Listings[i].roomNumber %></td>
-                                        <td><%= Listings[i].view %></td>
-                                        <td><%= Listings[i].size %></td>
-                                        <td><%= Listings[i].dateCreated %></td>
-                                        <td><%= Listings[i].dateUpdated %></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <%= Listings[i].addedNotes %>
-                            </div>
-                        </div>
-                    <% } %>
-                    <% } %>  
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                <a class="btn" data-bs-toggle="collapse" href="#collapseFour">
-                    <div class="card">
-                        <img src="/images/suite.jpg" width="100%" style="object-fit: contain;">
-                        <div class="card-body">
-                            <h2 class="card-title">Suite</h2>
-                        </div>
-                    </div>         
-                </a>
-                <div id="collapseFour" class="collapse show" data-bs-parent="#accordion">
-                    <% for(let i = 0; i < Listings.length; i++) { %>
-                    <% if(Listings[i].type == 'suite') { %>
-                        <div class="card">
-                            <div class="card-body">
-                                <% if(Listings[i].availability) { %>
-                                    <h3>Available</h3>
-                                <% } else { %>
-                                    <h3>Not Available</h3>
-                                <% } %>
-                                <table class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>Price ($/night)</th>
-                                        <th>Floor</th>
-                                        <th>Room Number</th>
-                                        <th>View</th>
-                                        <th>Size (sqft)</th>
-                                        <th>Date Created</th>
-                                        <th>Date Updated</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td><%= Listings[i].price %></td>
-                                        <td><%= Listings[i].floor %></td>
-                                        <td><%= Listings[i].roomNumber %></td>
-                                        <td><%= Listings[i].view %></td>
-                                        <td><%= Listings[i].size %></td>
-                                        <td><%= Listings[i].dateCreated %></td>
-                                        <td><%= Listings[i].dateUpdated %></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <%= Listings[i].addedNotes %>
-                            </div>
-                        </div>
-                    <% } %>
-                    <% } %>
-                </div>
-            </div>
-        </div>
+        <% } %>
+    </div>
 </div>
 
   
