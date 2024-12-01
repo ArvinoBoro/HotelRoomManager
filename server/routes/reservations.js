@@ -8,7 +8,9 @@ let Listings = require('../models/listing');
 router.get('/', async(req, res, next) => {
     try {
         const reservations = await Reservations.find();
-        console.log(reservations);
+
+        reservations.sort((a, b) => a.surname.localeCompare(b.surname));
+
         res.render('reservations/list', {
             title: 'Reservations',
             reservations: reservations
@@ -17,7 +19,7 @@ router.get('/', async(req, res, next) => {
             console.error(err);
             res.render('reservations/list', {
                 error: 'Error on the server'
-            })
+            });
         }
 });
 
@@ -27,7 +29,7 @@ router.get('/add/:id', async(req, res, next) => {
         let reservation = await Listings.findById(id).exec();
         let roomNumber = reservation.roomNumber;
 
-        console.log(roomNumber);
+        console.log("Reserved room: ", roomNumber);
 
         res.render('reservations/add', {
             title: 'Make a Reservation',

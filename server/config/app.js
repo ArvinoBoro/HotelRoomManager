@@ -15,14 +15,13 @@ let app = express();
 
 // database setup
 let DB = require('./db'); // Import the module with the URI
-console.log(DB);
 mongoose.connect(DB.URI); // Connect to the database
 let mongoDB = mongoose.connection; 
 mongoDB.on('error',console.error.bind(console,'Connection Error')) // Display any errors to console
 mongoDB.once('open', () => { // If the connection is open, print a success message to console. 
   console.log('MongoDB Connected')
 });
-mongoose.connect(DB.URI,{useNewURIParser:true,
+mongoose.connect(DB.URI, {useNewURIParser:true,
   useUnifiedTopology:true
 });
 
@@ -36,6 +35,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../../public')));
 app.use(express.static(path.join(__dirname, '../../node_modules')));
+
 
 app.use('/', indexRouter);
 app.use('/listings', listingsRouter); 

@@ -1,23 +1,35 @@
 <%- include ../partials/header.ejs %>
 <%- include ../partials/navbar.ejs %>
 
-<main class="container">
-    <% for(let i = 0; i < reservations.length; i++) {%>
-        <%= reservations[i].firstName %>
-        <br>
-        <%= reservations[i].surname %>
-        <br>
-        <%= reservations[i].email %>
-        <br>
-        <%= reservations[i].roomNumber %>
-        <br>
-        <%= reservations[i].status %>
-        <br>
-        <%= reservations[i].dateCreated %>
-        <br>
-        <%= reservations[i].dateUpdated %>
-        <br>
-    <% } %>
-</main>
+<div class="container table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Surname</th>
+                <th>First Name</th>
+                <th>Email</th>
+                <th>Room Number</th>
+                <th>Status</th>
+                <th>Date Created</th>
+                <th>Date Updated</th>
+            </tr>
+        </thead>
+        <% for(let i = 0; i < reservations.length; i++) { %>
+        <tbody>
+            <tr>
+                <td><%= reservations[i].surname %></td>
+                <td><%= reservations[i].firstName %></td>
+                <td><%= reservations[i].email %></td>
+                <td><%= reservations[i].roomNumber %></td>
+                <td><%= reservations[i].status %></td>
+                <td><%= reservations[i].dateCreated %></td>
+                <td><%= reservations[i].dateUpdated %></td>
+            </tr>
+        </tbody>
+        <% } %>
+    </table>
+</div>
+
 
 <%- include ../partials/footer.ejs %>
+

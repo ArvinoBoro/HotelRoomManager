@@ -42,7 +42,7 @@ router.get('/add', async(req, res, next) => {
         console.error(err);
         res.render('listings/list', {
             error:'Error on the server'
-        })
+        });
     }
 });
 
@@ -63,32 +63,31 @@ router.post('/add', async(req, res, next) => {
 
         Listings.create(newListing).then(() => {
             res.redirect('/listings/add');
-        })
-        console.log(newListing);
+        });
     }
     catch(err)
     {
         console.error(err);
         res.render('/listings', {
             error:'Error on the server'
-        })
+        });
     }
 });
 
-router.get('/edit/:id', async(req, res, next) => { // Every profile or account has a specific token or ID that indicates specific privileges.
+router.get('/edit/:id', async(req, res, next) => { 
     try {
         const id = req.params.id;
-        const listingToEdit = await Listings.findById(id); // Mongoose query
+        const listingToEdit = await Listings.findById(id); 
         res.render('listings/edit', { 
             title: 'Edit Listing',
-            Listing: listingToEdit // Send the document with the requested ID.
-        })
+            Listing: listingToEdit 
+        });
     }
     catch(err) {
         console.error(err);
         next(err);
     }
-})
+});
 
 router.post('/edit/:id', async(req, res, next) => {
     try {

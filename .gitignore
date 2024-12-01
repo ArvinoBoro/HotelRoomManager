@@ -8,4 +8,4 @@ build/
 *.pid
 .DS_Store
 Thumbs.db
-server/config/db.js
+/server/config/db.js
