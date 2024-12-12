@@ -2,24 +2,32 @@
 <%- include ../partials/header.ejs %>
 <%- include ../partials/navbar.ejs %>
 
-<form method="POST">
-    
-    <label for="firstName">First Name</label>
-    <input type="text" name="firstName" value="<%= Reservation.firstName %>" required>
+<div class="container mt-3">
+    <h2>Edit Reservation for Room <%= Reservation.roomNumber %></h2>
+    <form method="POST">
+      <div class="mb-3">
+        <label for="firstName">First Name</label>
+        <input class="form-control" type="text" name="firstName" value="<%= Reservation.firstName %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="surname">Surname</label>
+        <input class="form-control" type="text" name="surname" value="<%= Reservation.surname %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="email">Email</label>
+        <input class="form-control" type="text" name="email" value="<%= Reservation.email %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="startDate">Start Date</label>
+        <input class="form-control" type="date" name="startDate" value="<%= Reservation.startDate %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="endDate">End Date</label>
+        <input class="form-control" type="date" name="endDate" value="<%= Reservation.endDate %>" required>
+      </div>
 
-    <label for="surname">Surname</label>
-    <input type="text" name="surname" value="<%= Reservation.surname %>" required>
-
-    <label for="email">Email Address</label>
-    <input type="text" name="email" value="<%= Reservation.email %>" required>
-
-    <label for="startDate">Start Date</label>
-    <input type="date" name="startDate" value="<%= Reservation.startDate %>" required>
-
-    <label for="endDate">End Date</label>
-    <input type="date" name="endDate" value="<%= Reservation.endDate %>" required>
-
-    <select name="status" required>
+      <div class="mb-3">
+      <select name="status" required>
         <% if(Reservation.status == "pending" ) { %>
             <option value="pending" selected>Pending</option>
         <% } else { %>
@@ -50,11 +58,13 @@
             <option value="closed">Closed</option>
         <% } %>
     </select>
+    </div>
+      
+    <button class="btn btn-primary" type="submit">Save</button>  
+    <button class="btn btn-secondary" type="reset">Reset</button>
+    <a href="/reservations" class="btn btn-warning">Cancel<i class="fas fa-undo"></i></a>   
+    </form>
+  </div>
 
-    <button type="submit">Save Changes</button>
-    <button type="reset">Reset</button>
-    <a href="/reservations">Cancel</a>
-
-</form>
 
 <%- include ../partials/footer.ejs %>
