@@ -12,6 +12,7 @@
                 <th>Status</th>
                 <th>Date Created</th>
                 <th>Date Updated</th>
+                <th></th>
             </tr>
         </thead>
         <% for(let i = 0; i < reservations.length; i++) { %>
@@ -24,6 +25,10 @@
                 <td><%= reservations[i].status %></td>
                 <td><%= reservations[i].dateCreated %></td>
                 <td><%= reservations[i].dateUpdated %></td>
+                <td> 
+                    <a href="/reservations/edit/<%= reservations[i]._id %>" type="button" class="btn btn-primary btn-lg mb-3">Edit</a> 
+                    <a href="/reservations/delete/<%= reservations[i]._id %>" type="button" class="btn btn-danger btn-lg">Delete</a> 
+                </td>
             </tr>
         </tbody>
         <% } %>

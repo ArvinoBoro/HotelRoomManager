@@ -2,8 +2,8 @@
 <%- include ../partials/navbar.ejs %>
 
 <div class="container mt-3">
-    <h2><%= title %></h2>
-    <form method="POST" action="/reservations/add">
+    <h2>Reservation for Room <%=roomNumber %></h2>
+    <form method="POST">
       <div class="mb-3">
         <label for="firstName">First Name</label>
         <input class="form-control" type="text" name="firstName" required>

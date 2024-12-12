@@ -26,16 +26,22 @@ router.get('/', async(req, res, next) => {
 router.get('/add/:id', async(req, res, next) => {
     try {
         let id = req.params.id;
-        let reservation = await Listings.findById(id).exec();
-        let roomNumber = reservation.roomNumber;
+        let room = await Listings.findOne({_id: id, availability: true});
 
-        console.log("Reserved room: ", roomNumber);
+        if(room) {
+            let roomNumber = room.roomNumber;
 
-        res.render('reservations/add', {
-            title: 'Make a Reservation',
-            roomNumber: roomNumber,
-            id: id
-        });
+            console.log("Reserved room:", roomNumber);
+
+            res.render('reservations/add', {
+                title: 'Make a Reservation',
+                roomNumber: roomNumber,
+                id: id
+            }); 
+
+        } else {
+            res.redirect('/listings');
+        }
     }
     catch(err)
     {
@@ -49,43 +55,56 @@ router.get('/add/:id', async(req, res, next) => {
 router.post('/add/:id', async(req, res, next) => {
     try {
         let id = req.params.id;
-        let reservation = await Listings.findById(id).exec();
-        let roomNumber = reservation.roomNumber;
+        let room = await Listings.findOne({_id: id, availability: true});
+        
+        if(room) {
+            let roomNumber = room.roomNumber;
+            let newReservation = Reservations({
+                firstName: req.body.firstName,
+                surname: req.body.surname,
+                email: req.body.email,
+                roomNumber: roomNumber,
+                dateCreated: new Date(),
+                dateUpdated: new Date(),
+                status: "pending",
+                startDate: req.body.startDate,
+                endDate: req.body.endDate
+            });
+    
+            Reservations.create(newReservation).then(() => {
+                res.redirect('/reservations');
+            });
+            console.log("New Reservation:", newReservation);
 
-        let newReservation = Reservations({
-            firstName: req.body.firstName,
-            surname: req.body.surname,
-            email: req.body.email,
-            roomNumber: roomNumber,
-            dateCreated: new Date(),
-            dateUpdated: new Date(),
-            status: "pending",
-            startDate: req.body.startDate,
-            endDate: req.body.endDate
-        });
 
-        Reservations.create(newReservation).then(() => {
-            res.redirect('/reservations');
-        })
-        console.log(newReservation);
+        } else {
+            res.redirect('/listings'); 
+        }
+
     }
     catch(err)
     {
         console.error(err);
         res.render('/reservations', {
             error:'Error on the server'
-        })
+        });
     }
 });
 
 router.get('/edit/:id', async(req, res, next) => { 
     try {
-        const id = req.params.id;
-        const reservationToEdit = await Reservations.findById(id); 
-        res.render('reservations/edit', { 
-            title: 'Edit Reservation',
-            Reservation: reservationToEdit 
-        })
+        let id = req.params.id;
+        let reservationToEdit = await Reservations.findById(id); 
+
+        if(reservationToEdit) {
+            res.render('reservations/edit', { 
+                title: 'Edit Reservation',
+                Reservation: reservationToEdit,
+
+            });
+        } else {
+            res.redirect('/reservations');
+        }
     }
     catch(err) {
         console.error(err);
@@ -96,20 +115,33 @@ router.get('/edit/:id', async(req, res, next) => {
 router.post('/edit/:id', async(req, res, next) => {
     try {
         let id = req.params.id;
-        let updatedReservation = Reservations({
-            _id: id,
-            firstName: req.body.firstName,
-            surname: req.body.surname,
-            email: req.body.email,
-            dateUpdated: new Date(),
-            status: req.body.status,
-            startDate: req.body.startDate,
-            endDate: req.body.endDate
-        });
-        console.log(updatedReservation);
-        Reservations.findByIdAndUpdate(id, updatedReservation).then(() => {
+        let reservationToEdit = await Reservations.findById(id); 
+
+        if(reservationToEdit) {
+            let updatedReservation = Reservations({
+                _id: id,
+                firstName: req.body.firstName,
+                surname: req.body.surname,
+                email: req.body.email,
+                dateUpdated: new Date(),
+                status: req.body.status,
+                startDate: req.body.startDate,
+                endDate: req.body.endDate
+            });
+            console.log("Updated reservation:", updatedReservation);
+            Reservations.findByIdAndUpdate(id, updatedReservation).then(() => {
+                res.redirect('/reservations');
+            });    
+
+            if(req.body.status == 'accepted' || req.body.status == 'ongoing') {
+                let roomNumber = reservationToEdit.roomNumber;
+
+                await Listings.updateOne({roomNumber: roomNumber}, {$set: {availability: false}});
+            }
+
+        } else {
             res.redirect('/reservations');
-        });
+        }
     }
     catch(err) {
         console.error(err);
@@ -120,15 +152,21 @@ router.post('/edit/:id', async(req, res, next) => {
 router.get('/delete/:id', async(req, res, next) => {
     try {
         let id = req.params.id;
-        Reservations.deleteOne({_id:id}).then(() => {
-            res.redirect('/reservations')
-        })
+        let reservationToDelete = await Reservations.findById(id); 
+        
+        if(reservationToDelete) {
+            Reservations.deleteOne({_id:id}).then(() => {
+                res.redirect('/reservations')
+            });
+        } else {
+            res.redirect('/reservations');
+        }
     }
     catch(error) {
         console.error(err);
         res.render('/reservations',{
             error:'Error on the server'
-        })
+        });
     }
 });
 
