@@ -10,14 +10,14 @@ router.get('/', async(req, res, next) => {
     try {
         let listings = await Listings.find();
         let imageDir = path.join(__dirname, '../../public/images');
-        console.log(imageDir)
         let images = fs.readdirSync(imageDir).sort();
-        console.log(listings);
-        console.log(images);
+        let queryParam = req.query.message;
+
         res.render('listings/list', {
             title: 'Listings',
             Listings: listings,
-            Images: images 
+            Images: images,
+            queryParam: queryParam
         });
     }
         catch(err){
@@ -29,12 +29,14 @@ router.get('/', async(req, res, next) => {
 });
 
 router.get('/add', async(req, res, next) => {
+
     try {
+        let queryParam = req.query.message;
         let previousListing = await Listings.findOne().sort({dateCreated: -1} ).exec(); // Finds the previously created listing. 
-        console.log(previousListing);
         res.render('listings/add', {
             title: 'Add Listing',
-            previousListing: previousListing
+            previousListing: previousListing,
+            queryParam: queryParam
         });
     }
     catch(err)
@@ -62,19 +64,18 @@ router.post('/add', async(req, res, next) => {
         });
 
         Listings.create(newListing).then(() => {
-            res.redirect('/listings/add');
+            res.redirect('/listings/add?message=add_success');
         });
     }
     catch(err)
     {
         console.error(err);
-        res.render('/listings', {
-            error:'Error on the server'
-        });
+        res.redirect('/listings/add?message=failure');
     }
 });
 
 router.get('/edit/:id', async(req, res, next) => { 
+    
     try {
         const id = req.params.id;
         const listingToEdit = await Listings.findById(id); 
@@ -103,9 +104,8 @@ router.post('/edit/:id', async(req, res, next) => {
             type: req.body.type,
             view: req.body.view
         });
-        console.log(updatedListing);
         Listings.findByIdAndUpdate(id, updatedListing).then(() => {
-            res.redirect('/listings');
+            res.redirect('/listings?message=edit_success');
         });
     }
     catch(err) {
@@ -118,14 +118,12 @@ router.get('/delete/:id', async(req, res, next) => {
     try {
         let id = req.params.id;
         Listings.deleteOne({_id:id}).then(() => {
-            res.redirect('/listings')
+            res.redirect('/listings?message=delete_success');
         })
     }
     catch(error) {
         console.error(err);
-        res.render('/listings',{
-            error:'Error on the server'
-        })
+        res.redirect('/listings?message=failure');
     }
 });
 

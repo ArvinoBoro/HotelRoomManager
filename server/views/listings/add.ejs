@@ -2,7 +2,18 @@
 <%- include ../partials/navbar.ejs %>
 
 <div class="container mt-3">
+    <% if(queryParam == 'add_success') { %>
+        <div class="alert alert-success">
+            <strong>Success!</strong> Your listing has been added.
+        </div>
+    <% } else if (queryParam == 'failure') { %>
+        <div class="alert alert-danger">
+            Something went wrong. If the issue presists, please contact <a href="#">support</a>. 
+        </div>
+    <% } %>
+
     <h2><%= title %></h2>
+
     <form method="POST" action="/listings/add">
       <div class="mb-3">
         <label for="addedNotes">Added Notes</label>

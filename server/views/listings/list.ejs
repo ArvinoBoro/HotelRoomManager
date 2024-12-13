@@ -3,6 +3,21 @@
 
 
 <div class="container mt-3">
+
+    <% if(queryParam == 'edit_success') { %>
+        <div class="alert alert-success">
+            <strong>Success!</strong> Your changes have been saved.
+        </div>
+    <% } else if(queryParam == 'delete_success') { %>
+        <div class="alert alert-success">
+            The listing has been deleted. 
+        </div>
+    <% } else if(queryParam == 'failure') { %>
+        <div class="alert alert-danger">
+            Something went wrong. If the issue presists, please contact <a href="#">support</a>.
+        </div>
+    <% } %>
+
     <div id="accordion">
         <% for(let j = 0; j < Images.length; j++) { %>
             <div class="card">
